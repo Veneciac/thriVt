@@ -1,0 +1,30 @@
+<%- include ./partial/header.ejs %>
+<%- include ./partial/alert.ejs %>
+
+<h1 style="text-align: center">List item : </h1>
+
+<div class="container">
+        <table class="table table-hover">
+          <thead>
+            <tr>
+              <th>Name</th>
+              <th>Picture</th>
+              <th>Tweet</th>
+            </tr>
+          </thead>
+          <tbody>
+                <% for (let i = 0 ; i < data.length; i++) { %>
+                    <tr>
+                      <td><%= data[i].name %></td>
+                      <td> <img src="<%= data[i].urlPic %>"> </td>
+                      <!-- <td><a class="twitter-share-button" href="https://twitter.com/intent/tweet"> Tweet</a></td> -->
+                      <td><a class="twitter-share-button"
+                        href="https://twitter.com/intent/tweet?text=Hello%20I%20want%20to%20share%20this%20item%20I%20don't%20want%20anymore">Tweet</a></td>
+                    </tr>
+                <% } %>
+          </tbody>
+        </table>
+      </div>
+
+      <h3 style="text-align:center"><a href="/item/add">Add Item</a></h3> 
+<%- include ./partial/footer.ejs %>
