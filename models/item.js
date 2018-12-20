@@ -3,7 +3,6 @@
 module.exports = (sequelize, DataTypes) => {
   const Item = sequelize.define('Item', {
     name: DataTypes.STRING,
-    time: DataTypes.TIME,
     urlPic: DataTypes.STRING ,
     GiverId: DataTypes.INTEGER,
     available: DataTypes.INTEGER

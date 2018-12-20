@@ -7,6 +7,8 @@ const OAuth = require('oauth');
 var oauth = new OAuth.OAuth(
     'https://api.twitter.com/oauth/request_token',
     'https://api.twitter.com/oauth/access_token',
+    '8fE4GT7epX6OZ7OjUBBiZTik2', //consumer key
+    'tt3c56q0sn1nL8n3pi9l5O3674KoPjgtgMefQotkNZ69f6yebw', //secret
     '1.0A',
     null,
     'HMAC-SHA1'
@@ -92,6 +94,8 @@ route.post('/register', (req, res ) => {
 route.get('/tweet/post/:twit', cekLogin, cekUser, (req, res) => {
     oauth.post(
     'https://api.twitter.com/1.1/statuses/update.json' , 
+        '1377494346-EX43uLqpcUJgmp71xMImhCWzkUJJAG3hKgscQtw', //user token
+        'ZXaE6gBDB1FyBIApC3SFUUgV3pRJ5iqsXegEDDDqffIhW', //user secret
         { status: `thriVt :
         Hello ${'@'+req.params.twit} , ${'@' + req.session.user.twitterUsername} want your item from thriVt` },
         function(err, data) {
@@ -109,6 +113,7 @@ route.get('/tweet/post/:twit', cekLogin, cekUser, (req, res) => {
         }
     )
 })
+
 
 route.get('/:id/edit' , (req, res) => {
     User.findOne({where: {
