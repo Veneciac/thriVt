@@ -18,3 +18,5 @@ app.use('/', route)
 app.listen(port , () => {
     console.log(`App listening to port ${port}`)
 })
+
+app.listen(process.env.PORT || '3000')
