@@ -1,0 +1,18 @@
+<% if(msg) { %>
+    <div class="alert alert-info">
+        <strong>Info!</strong> <%= msg %>
+    </div>
+<% } else if (err) { %>
+    <% if (typeof err == 'string') { %>
+        <div class="alert alert-danger">
+            <strong>Error !</strong> <%= err %>
+        </div>
+    <% } else { %>
+        <% for (let i = 0 ; i< err.length; i++ ) { %>
+            <div class="alert alert-danger">
+                <strong>Error !</strong> <%= err.message %>
+            </div>
+        <% } %>
+
+    <% } %>
+<% }%>

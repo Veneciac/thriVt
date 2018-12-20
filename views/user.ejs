@@ -1,0 +1,30 @@
+<%- include ./partial/header.ejs %>
+<%- include ./partial/alert.ejs %>
+<div class="container">
+        <h2>User</h2>
+        <table class="table table-hover">
+          <thead>
+            <tr>
+              <th>Name</th>
+              <th>Twitter username</th>
+              <th>Email</th>
+              <th>Address</th>
+              <th>Option</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><%= data.name %></td>
+              <td><%= data.twitterUsername %></td>
+              <td><%= data.email %></td>
+              <td><%= data.address %></td>
+              <td><a href="/user/<%= data.id %>/edit">Edit </a> || <a onclick="return confirm('Are you sure?')" href="/user/<%= data.id%>/delete">delete</a> </td>
+            </tr>
+          </tbody>
+        </table>
+</div>
+<h2 style="text-align: center" > <%= trans %></h2>
+<h3 style="text-align: center"><a href="/user/logout/<%= data.id %>"> Logout </a> </h3>
+
+
+<%- include ./partial/footer.ejs %>
