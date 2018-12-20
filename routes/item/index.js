@@ -13,7 +13,7 @@ var storage = multer.diskStorage({
         let type = file.mimetype.split('/')[1]
       cb(null, Date.now() + splitFile + '.' + type)
     }
-  })
+})
    
 var upload = multer({ storage: storage })
 
