@@ -1,0 +1,33 @@
+{
+  "name": "thrivt",
+  "version": "1.0.0",
+  "description": "Donates your used goods",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon app.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Veneciac/thriVt.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Veneciac/thriVt/issues"
+  },
+  "homepage": "https://github.com/Veneciac/thriVt#readme",
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "ejs": "^2.6.1",
+    "express": "^4.16.4",
+    "express-session": "^1.15.6",
+    "materialize-css": "^1.0.0-rc.2",
+    "multer": "^1.4.1",
+    "nodemailer": "^4.7.0",
+    "oauth": "^0.9.15",
+    "pg": "^7.7.1",
+    "sequelize": "^4.42.0",
+    "sequelize-cli": "^5.4.0"
+  }
+}
