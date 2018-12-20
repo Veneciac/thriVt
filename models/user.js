@@ -55,5 +55,15 @@ module.exports = (sequelize, DataTypes) => {
     return this.name + '_' + this.email.slice(0,1) + Math.floor(Math.random() * 1000)
   }
 
+  User.genTrans = function(id) {
+    return sequelize.models.Transaction
+    .findAll({
+        attributes: { exclude: ['UserId'] } ,
+        where: {
+          GiverId: id
+        }
+    })
+  }
+
   return User;
 };

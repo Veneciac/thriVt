@@ -11,16 +11,20 @@
               <th>Picture</th>
               <th>Giver</th>
               <th>Options</th>
+              <th>Tweet</th>
             </tr>
           </thead>
           <tbody>
                 <% for (let i = 0 ; i < data.length; i++) { %>
+                  <% if (data[i].available == 1) { %>
                     <tr>
                       <td><%= data[i].name %></td>
-                      <td> <img src="<%= data[i].urlPic %>"> </td>
+                      <td> <img src="<%= data[i].urlPic %>" height="100" width="100" ></td>
                       <td><%= data[i].User.name%></td>
-                      <td> <a href="/transaction/<%= data[i].User.id %>/<%= data[i].id %>"> Request Item</a> || <a href="/item/<%= data[i].id %>/delete"> Delete Item</a> </td>
+                      <td> <a onclick="return confirm(`Are you sure already? you can't cancel your request `)" href="/transaction/<%= data[i].User.id %>/<%= data[i].id %>"> Request Item</a> || <a href="/item/<%= data[i].id %>/delete"> Delete Item</a> </td>
+                      <td> <a href="/user/tweet/post/<%= data[i].User.twitterUsername %>"> notify giver</a> </td>
                     </tr>
+                  <% } %>
                 <% } %>
           </tbody>
         </table>
