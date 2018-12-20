@@ -2,6 +2,15 @@ const route = require('express').Router()
 const {User, Item, Transaction} = require('../../models')
 const cekLogin = require('../../helper/cekLogin')
 const genPass = require('../../helper/hashpass')
+const cekUser = require('../../helper/cekUser')
+const OAuth = require('oauth');
+var oauth = new OAuth.OAuth(
+    'https://api.twitter.com/oauth/request_token',
+    'https://api.twitter.com/oauth/access_token',
+    '1.0A',
+    null,
+    'HMAC-SHA1'
+  );
 
 route.get('/login' , (req, res ) => {
     let msg = null
@@ -21,15 +30,15 @@ route.post('/login', (req, res ) => {
     }})
     .then(data => {
         if(!data) {
-            res.redirect('/?err= Email not found')
+            res.redirect('/user/login?err= Email not found')
         } else {
             if (!genPass.checkPass(req.body.password, data.password)) {
-                res.redirect('/?err= Wrong password')
+                res.redirect(`/user/login?err=Wrong password`)
             } else {
                 req.session.user = {
                     id: data.id, 
                     email: data.email,
-                    role: data.role
+                    twitterUsername: data.twitterUsername
                 }
                 res.redirect(`/user/${data.id}`)
             }
@@ -78,6 +87,27 @@ route.post('/register', (req, res ) => {
         .catch(err => {
             res.redirect(`/user/register?err= ${err}`)
         })
+})
+
+route.get('/tweet/post/:twit', cekLogin, cekUser, (req, res) => {
+    oauth.post(
+    'https://api.twitter.com/1.1/statuses/update.json' , 
+        { status: `thriVt :
+        Hello ${'@'+req.params.twit} , ${'@' + req.session.user.twitterUsername} want your item from thriVt` },
+        function(err, data) {
+            if(err) {
+                // res.send(err.data)
+                if (err.data == '{"errors":[{"code":187,"message":"Status is a duplicate."}]}') {
+                      res.redirect(`/user/${req.session.user.id}?err= You already notify the giver via twitter`)
+                } else {
+                    res.redirect(`/user/${req.session.user.id}?err= Error notifying giver via twitter`)
+                }
+            } else {
+                res.redirect('/item?msg= Success notifying giver via twitter')
+                console.log('success tweet!!!!!!!!!!!!')
+            }
+        }
+    )
 })
 
 route.get('/:id/edit' , (req, res) => {
@@ -129,12 +159,12 @@ route.get('/:id/delete' ,cekLogin, (req, res) => {
 route.get('/:id/myItems' , cekLogin, (req, res ) => {
     let msg = null
     let err = null
-
     if(req.query.err) {
         err = req.query.err
     } else if (req.query.msg) {
         msg = req.query.msg
     }
+    
     Item.findAll({where: {
         GiverId: req.params.id
     }})
@@ -146,7 +176,7 @@ route.get('/:id/myItems' , cekLogin, (req, res ) => {
     })
 })
 
-route.get('/:id', cekLogin , (req, res ) => {
+route.get('/:id',cekLogin , (req, res ) => { //ingat cekLogin
     let msg = null
     let err = null
 
@@ -160,11 +190,26 @@ route.get('/:id', cekLogin , (req, res ) => {
         id: req.params.id
     }})
     .then(data => {
-        res.render('user.ejs', {data, msg, err})
+        console.log("------> ", data)
+        // res.send(data)
+        User.genTrans(data.id)
+            .then(dataOne => {
+                let trans = null
+                // res.send(dataOne)
+                if(dataOne.length >=1) {
+                    trans = `Success donation : ${dataOne.length}`
+                } else {
+                    trans = `You don't have donation yet`
+                }
+                res.render('user.ejs', {data, msg, err, trans})
+            })
+            .catch(err => {
+                res.send(err)
+            })
     })
     .catch(err => {
-        res.send(err)
-        // res.redirect(`/?err= ${err}`)
+        // res.send(err)
+        res.redirect(`/?err= ${err}`)
     })
 })
 

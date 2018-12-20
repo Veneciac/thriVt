@@ -38,7 +38,6 @@ route.get('/:GiveId/:ItemId',cekLogin,  (req, res ) => {
                     id: req.params.GiveId
                 }})
                     .then(dataGive => {
-
                         //send email ke giver
                         var mailGiver = {
                             from: 'gamecowo12345@gmail.com',
@@ -71,7 +70,7 @@ route.get('/:GiveId/:ItemId',cekLogin,  (req, res ) => {
                         res.redirect('/item?msg= Success request Items')
                     })
                     .catch(err => {
-                        res.send(err)
+                        res.redirect('/?msg= Error requesting item !')
                     })
             })
             .catch(err => {

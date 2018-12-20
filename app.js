@@ -6,7 +6,7 @@ const session = require('express-session')
 
 app.set('view engine', 'ejs')
 
-app.use('/uploads', express.static('uploads')) // gada filename di blakangnya
+app.use('/', express.static('uploads')) 
 
 app.use(express.urlencoded({extended: false}))
 app.use(session({
@@ -14,9 +14,6 @@ app.use(session({
 }))
 
 app.use('/', route)
-// app.use((req, res, next) => {
-//     res.locals.
-// })
 
 app.listen(port , () => {
     console.log(`App listening to port ${port}`)
