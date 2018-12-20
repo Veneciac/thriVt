@@ -6,6 +6,7 @@ const transaction = require('./transaction')
 route.use(function(req, res, next) {
     if (req.session.user) {
         res.locals.userId = req.session.user.id
+        
     } else {
         res.locals.userId = null
     }
