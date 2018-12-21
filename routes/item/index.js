@@ -62,10 +62,12 @@ route.get('/:id/delete', cekLogin, (req, res ) => {
     Item.findOne( {
         include: {
             model:User
+        }, where: {
+            id: req.params.id
         }
     })
     .then(dataItem => {
-        if(req.session.user.id !== dataItem.User.id) {
+        if(req.session.user.id !== dataItem.GiverId) {
             res.redirect('/item?msg= You are not allowed to delete others item')
         } else {
             Item.destroy({where:{
