@@ -13,7 +13,7 @@ var transporter = nodemailer.createTransport({
 
 route.get('/:GiveId/:ItemId',cekLogin,  (req, res ) => {
     if(req.session.user.id == req.params.GiveId) {
-        res.redirect(`/?msg= You can't request your own item`)
+        res.redirect(`/item?msg= You can't request your own item`)
     } else {
         let obj = {
             GiverId: req.params.GiveId,
