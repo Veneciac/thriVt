@@ -109,7 +109,7 @@ route.get('/tweet/post/:twit', cekLogin, cekUser, (req, res) => {
                 }
             } else {
                 res.redirect('/item?msg= Success notifying giver via twitter')
-                console.log('success tweet!!!!!!!!!!!!')
+                // console.log('success tweet!!!!!!!!!!!!')
             }
         }
     )
