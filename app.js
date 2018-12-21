@@ -1,7 +1,7 @@
 require('dotenv').config()
 const express = require('express')
 const app = express()
-const port = 3000
+const port = process.env.PORT || 3000
 const route = require('./routes')
 const session = require('express-session')
 
@@ -21,4 +21,4 @@ app.listen(port , () => {
     console.log(`App listening to port ${port}`)
 })
 
-app.listen(process.env.PORT || '3000')
+// app.listen(process.env.PORT || '3000')
